@@ -1,0 +1,25 @@
+name: 🚀 自动部署 (Auto Deploy)
+
+on:
+  push:
+    branches: [ "main" ]  # 监听 main 分支的变动
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest  # 借一台 Ubuntu 电脑
+    steps:
+      - name: 🔌 连接服务器并更新代码
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.SSH_KEY }}
+          script: |
+            # 1. 进入项目目录 (绝对路径)
+            cd /opt/docker/nginx-cd-demo
+            
+            # 2. 拉取最新代码
+            git pull origin main
+            
+            # 3. 打印成功信息
+            echo "✅ 部署成功！代码已更新到最新版本。"
