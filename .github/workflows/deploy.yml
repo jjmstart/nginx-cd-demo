@@ -14,6 +14,7 @@ jobs:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.SSH_KEY }}
+          port: 65522
           script: |
             # 1. 进入项目目录 (绝对路径)
             cd /opt/docker/nginx-cd-demo
